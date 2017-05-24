@@ -1,0 +1,8 @@
+<h3>Login</h3>
+<form (submit)="login()" #formData="ngForm">
+	<p>Name: <input type="text" name="name" required minlength="2" [(ngModel)]="loginInfo.name" #name="ngModel"><span *ngIf="name.dirty"><span *ngIf="name.errors?.required">Name field is required.</span><span *ngIf="name.errors?.minlength">Name Length must be great than 2.</span></span></p>
+
+	<input type="submit" name="login" value="Login" [disabled]="!formData.form.valid">
+</form>
+
+<p *ngIf="errors">{{ errors._body | json }}</p>

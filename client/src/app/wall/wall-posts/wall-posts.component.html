@@ -1,0 +1,27 @@
+<form (submit)="post()" #formData="ngForm">
+	<p><textarea cols="50" rows="10" name="message" required minlength="10" [(ngModel)]="newPost.message" #message="ngModel" placeholder="Post go here!"></textarea><span *ngIf="message.dirty"><span *ngIf="message.errors?.required">Post field is required.</span><span *ngIf="message.errors?.minlength">Post Length must be greater than 10 characters.</span></span></p>
+
+	<input type="submit" name="post" value="Post" [disabled]="!formData.form.valid">
+</form>
+
+<div *ngFor="let post of posts">
+	<h4>{{ post.name }} - {{ post.createdAt | date:"short" }}</h4>
+	<p>{{ post.message }}</p>
+
+	<div style="margin-left:20px;">
+
+		<div *ngFor="let comment of post.comments">
+			<h4>{{ comment.name }} - {{ comment.createdAt | date:"short" }}</h4>
+			<p>{{ comment.comment }}</p>
+		</div>
+
+		<form (submit)="submitComment(post._id)" #formData="ngForm">
+			<p><textarea cols="40" rows="5" name="comment" required minlength="10" [(ngModel)]="newComment[post._id].comment" #comment="ngModel" placeholder="Comment go here!"></textarea><span *ngIf="comment.dirty"><span *ngIf="comment.errors?.required">Comment field is required.</span><span *ngIf="comment.errors?.minlength">Comment Length must be greater than 10 characters.</span></span></p>
+
+			<input type="submit" name="comment" value="Submit Comment" [disabled]="!formData.form.valid">
+		</form>
+	</div>
+
+
+</div>
+{{ posts | json }}

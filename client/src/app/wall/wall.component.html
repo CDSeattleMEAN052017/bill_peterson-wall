@@ -1,0 +1,4 @@
+<h2 *ngIf="wallService.currentUser._id">Welcome {{ wallService.currentUser.name }} <button type="button" name="logout" (click)="logout()">Logout</button> </h2>
+
+<app-wall-login *ngIf="!wallService.currentUser._id"></app-wall-login>
+<app-wall-posts *ngIf="wallService.currentUser._id"></app-wall-posts>
